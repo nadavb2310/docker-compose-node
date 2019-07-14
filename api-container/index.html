@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title></title>
+  </head>
+  <body>
+    <h2>Hello</h2>
+    <p id='socket'>not connected</p>
+    <p id='currentTime'></p>
+    <button>Get Current Time</button>
+    <script src="/socket.io/socket.io.js"></script>
+    <script>
+        var socket = io();
+        socket.on('connect', function(){
+            document.getElementById('socket').innerHTML = 'connected to the server';
+        });
+
+        socket.on('currentTime', function(latestData){
+            document.getElementById('currentTime').innerHTML = 'Current Time: ' + (latestData);
+        });
+
+        socket.on('disconnected',function(){
+            document.getElementById('socket').innerHTML = 'disconnected';
+        });
+    </script>
+  </body>  
+</html>

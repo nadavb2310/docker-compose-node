@@ -1,0 +1,28 @@
+{
+  "name": "node-server",
+  "version": "1.0.0",
+  "description": "running web server on docker",
+  "main": "src/app.js",
+  "scripts": {
+    "start": "node src/app.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/nadavb2310/Node-Server-Docker.git"
+  },
+  "author": "nadavbi",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.16.4",
+    "express-fileupload": "^1.0.0",
+    "express-session": "^1.16.1",
+    "express-validator": "^5.3.1",
+    "http": "0.0.0",
+    "moment": "^2.24.0",
+    "socket.io": "^2.2.0"
+  },
+  "bugs": {
+    "url": "https://github.com/nadavb2310/Node-Server-Docker/issues"
+  },
+  "homepage": "https://github.com/nadavb2310/Node-Server-Docker#readme"
+}
