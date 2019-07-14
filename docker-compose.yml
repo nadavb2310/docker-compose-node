@@ -33,3 +33,4 @@ services:
       - type: volume
         source: logs
         target: /var/log
+        
