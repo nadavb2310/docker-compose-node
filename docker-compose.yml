@@ -1,17 +1,17 @@
 version: "3"
 services:
-    api:
+  api:
         build: api-container/
         ports:
          - 9090:9090
-    gui:
+  gui:
         build: gui-container/
         ports:
          - 80:80
         links:
          - api:apiserver
 
-    elasticsearch:
+  elasticsearch:
       image: docker.elastic.co/elasticsearch/elasticsearch:7.2.0
       environment:
         ELASTICSEARCH_USER: admin
@@ -33,4 +33,3 @@ services:
       - type: volume
         source: logs
         target: /var/log
-        
