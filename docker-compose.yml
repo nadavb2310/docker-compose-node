@@ -28,8 +28,8 @@ services:
       ELASTICSEARCH_USER: admin
       ELASTICSEARCH_PASS: admin
     ports:
-      - 5601:5601
-    volumes:
-      - type: volume
-        source: logs
-        target: /var/log
+      - "5601:5601"
+    # volumes:
+    #     type: volume
+    #     source: logs
+    #     target: /var/log
