@@ -37,12 +37,6 @@ check_dependencies_build_and_run(){
   open http://localhost
 }
 
-generate_api_doc(){
-  cd app/
-  apidoc -i ./routes/ -o ../apidoc
-  cd ..
-}
-
 run_dev(){
   docker-compose down
   docker-compose up db &
@@ -57,10 +51,6 @@ if [ $1 == "build" ]; then
   check_dependencies_build_and_run
 elif [ $1 == "run" ]; then
   check_dependencies_and_run
-elif [ $1 == "apidoc" ]; then
-  generate_api_doc
-elif [ $1 == "dev" ]; then
-  run_dev
 else
   echo "Unknown command";
 fi
