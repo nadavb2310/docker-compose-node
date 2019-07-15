@@ -1,4 +1,9 @@
 version: "3"
+
+####################################################################
+#services part, mapping all the services to run on their containers.
+####################################################################
+
 services:
   api:
       build: api-container/
@@ -10,26 +15,48 @@ services:
         - 80:80
       links:
         - api:apiserver
+        - elasticsearch:elasticsearch
+        - kibana:kibana
 
   elasticsearch:
       image: docker.elastic.co/elasticsearch/elasticsearch:7.2.0
       environment:
         ELASTICSEARCH_USER: admin
         ELASTICSEARCH_PASS: admin
+        ES_JAVA_OPTS: "-Xmx256m -Xms256m"
       ports:
         - "9200:9200"
+      build:
+        context: elasticsearch/
+        args:
+          ELK_VERSION: $ELK_VERSION
+      volumes:
+        - ./elasticsearch/config/elasticsearch.yml:/usr/share/elasticsearch/config/elasticsearch.yml:ro
+      ports:
+        - "9200:9200"
+        - "9300:9300"
+      networks:
+        - elk
 
   kibana:
       image: docker.elastic.co/kibana/kibana:7.2.0
       container_name: kibana
-      environment:
-        SERVER_NAME: localhost
-        ELASTICSEARCH_URL: http://elasticsearch1:9200/
-        ELASTICSEARCH_USER: admin
-        ELASTICSEARCH_PASS: admin
       ports:
         - "5601:5601"
-    # volumes:
-    #     type: volume
-    #     source: logs
-    #     target: /var/log
+      build:
+        context: kibana/
+        args:
+        ELK_VERSION: 7.2.0
+      volumes:
+        - ./kibana/config/kibana.yml:/usr/share/kibana/config/kibana.yml:ro
+      ports:
+        - "5601:5601"
+      networks:
+        - elk
+      depends_on:
+        - elasticsearch
+
+networks:
+
+  elk:
+    driver: bridge
